@@ -35,7 +35,7 @@ const Home = () => {
                     <div className={`home-page-special-text w-full max-w-[540px] flex flex-col`} style={{
                         alignSelf: "end"
                     }}>
-                        <span>Unveil Thoughts </span>
+                        <span className={`whitespace-nowrap`}>Unveil Thoughts </span>
                         <span className={`border-b-[4px]`}
                             style={{
                                 alignSelf: "end"
@@ -46,7 +46,7 @@ const Home = () => {
                     <div style={{
                         alignSelf: "end"
                     }}>
-                        <p className={`text-[24px] font-[300]`}>Place Where Your Stories Meet Others' Emotions.</p>
+                        <p className={`text-[24px] font-[300] whitespace-nowrap`}>Place Where Your Stories Meet Others' Emotions.</p>
                     </div>
 
                     <div className={`flex justify-center items-center primary-button font-medium text-[30px] gap-[16px] w-[306px]`} style={{
