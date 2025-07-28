@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+}
+
+html,
+body,
+#root {
+  /* height: 100vh; */
+  /* height: 100%; */
+  /* width: 100%; */
+  /* background-color: black; */
+}
+
+/* GLOBAL AND COMMON CSS */
+.spirax-regular {
+  font-family: "Spirax", system-ui;
+  font-style: normal;
+}
+
+.primary-button {
+  background-color: #2D2D2D;
+  color: #FFFFFF;
+  border-radius: 33px;
+  padding: 10px;
+  cursor: pointer;
+}
