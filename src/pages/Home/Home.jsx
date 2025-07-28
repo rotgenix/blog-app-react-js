@@ -12,7 +12,7 @@ const Home = () => {
                     padding: "0px 72px"
                 }}
             >
-                <p className={`spirax-regular font-light text-[56px]`}>Blogsy</p>
+                <p className={`spirax-regular font-light text-[56px]`}>Blogsee</p>
 
                 <div className={`flex justify-center items-center gap-[50px]`}>
                     <p className={`font-light text-[24px]`}>Features</p>
@@ -63,10 +63,10 @@ const Home = () => {
                     padding: "0px 72px"
                 }}
             >
-                <p className={`spirax-regular font-normal text-[40px]`}>Blogsy</p>
+                <p className={`spirax-regular font-normal text-[40px]`}>Blogsee</p>
 
                 <div className={`flex justify-center items-center gap-[50px]`}>
-                    <p className={`font-light text-[20px]`}>Team Blogsy</p>
+                    <p className={`font-light text-[20px]`}>Team Blogsee</p>
                     <p className={`font-light text-[20px]`}>Contact</p>
                     <p className={`font-light text-[20px]`}>About</p>
                     <p className={`font-light text-[20px]`}>Terms</p>
