@@ -1,0 +1,60 @@
+.app-pop-up {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* backdrop-filter: blur(4px); */
+    /* background: rgba(0, 0, 0, 0.5); */
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.app-popup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
+    /* padding: 30px; */
+    max-height: 85vh;
+    /* border: 2px solid black; */
+    border-radius: 20px;
+    max-width: 40vw;
+    /* overflow: hidden; */
+    overflow-y: scroll;
+
+    border: 1px solid #676767;
+    /* box-shadow:
+        4px 4px 10px rgba(0, 0, 0, 0.2),
+        -4px 4px 10px rgba(0, 0, 0, 0.2); */
+
+    box-shadow:
+        4px 4px 10px #4848482d,
+        -4px 4px 10px #4848482d;
+}
+
+.app-popup-container:not(.disable-animation) {
+    animation: slideAndFadeInUp 0.5s ease forwards;
+}
+
+@keyframes slideAndFadeInUp {
+    from {
+        opacity: 0;
+        scale: 0.9;
+    }
+
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+.app-popup-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* MAIN CSS  */
+.app-popup-container {}

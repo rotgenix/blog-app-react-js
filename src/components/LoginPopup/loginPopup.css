@@ -1,0 +1,39 @@
+.login-popup {
+    width: 452px;
+    padding: 23px 42px 34px 30px;
+    background-color: #FFFFFF;
+
+}
+
+.input-label-container {
+    width: 100%;
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: start; */
+    flex-direction: column;
+    gap: 6px;
+    /* background-color: rebeccapurple; */
+}
+
+.input-container {
+    height: 39px;
+    padding: 10px;
+    border: 1px solid #676767;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    /* border: none; */
+    /* optional: agar border bhi hataana ho to */
+}
+
+input:focus {
+    /* outline: none; */
+}
