@@ -1,19 +1,35 @@
-import MainImage from "../../assets/HomePage.svg"
-import Aero from "../../assets/Aero.svg"
-
-import "./home.css"
-import Popup from "../../components/Popup/Popup"
 import { useState } from "react"
+
+import Aero from "../../assets/Aero.svg"
+import LandingPage from "../../assets/LandingPage.svg"
+
+import Popup from "../../components/Popup/Popup"
 import LoginPopup from "../../components/LoginPopup/LoginPopup"
 
-const Home = () => {
+import "./landing.css"
+import { hasNoEmptyOrNullKeys } from "../../utils/helper"
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+
+const Landing = () => {
+    const {
+        apiState: {
+            success,
+            message: userApiMessage,
+            isError: userApiError
+        },
+        user
+    } = useSelector(state => state.user);
+
+    const navigate = useNavigate();
+
     const [loginPopUp, setLoginPopUp] = useState(false);
 
     return (
         <>
-            <div className={`home-page flex flex-col justify-between items-center h-screen max-w-[2000px] m-auto`} style={{ margin: "auto" }}>
+            <div className={`landing-page flex flex-col justify-between items-center h-screen max-w-[2000px] m-auto`} style={{ margin: "auto" }}>
                 <div
-                    className={`w-full home-page-navbar border-b border-b-[#DBDBDB] flex justify-between items-center h-[130px]`}
+                    className={`w-full landing-page-navbar border-b border-b-[#DBDBDB] flex justify-between items-center h-[130px]`}
                     style={{
                         padding: "0px 72px"
                     }}
@@ -21,30 +37,48 @@ const Home = () => {
                     <p className={`spirax-regular text-[56px]`}>Blogsee</p>
 
                     <div className={`flex justify-center items-center gap-[50px]`}>
-                        <p className={`text-[24px]`} style={{
-                            fontWeight: "300"
-                        }}>Features</p>
-                        <p className={`text-[24px]`} style={{
-                            fontWeight: "300"
-                        }}>Contact Team</p>
-                        <p className={`text-[24px]`} style={{
-                            fontWeight: "300"
-                        }}>Write</p>
-                        <button className={`w-[207px] h-[61px] primary-button font-medium text-[24px]`} onClick={() => setLoginPopUp(prev => !prev)}>Sign in</button>
+                        <p
+                            className={`text-[24px]`}
+                            style={{
+                                fontWeight: "300"
+                            }}
+                        >Features</p>
+                        <p
+                            className={`text-[24px]`}
+                            style={{
+                                fontWeight: "300"
+                            }}
+                        >Contact Team</p>
+                        <p
+                            className={`text-[24px]`}
+                            style={{
+                                fontWeight: "300"
+                            }}
+                        >Write</p>
+                        <button
+                            className={`w-[207px] h-[61px] primary-button font-medium text-[24px] cursor-pointer`}
+                            onClick={() => {
+                                if (hasNoEmptyOrNullKeys(user)) {
+                                    return navigate("/explore");
+                                } else {
+                                    setLoginPopUp(prev => !prev);
+                                }
+                            }}
+                        >{hasNoEmptyOrNullKeys(user) ? "Explore" : "Sign in"}</button>
                     </div>
                 </div>
 
-                <div className={`home-page-main-container w-full flex justify-center items-center gap-[12px]`}
+                <div className={`landing-page-main-container w-full flex justify-center items-center gap-[12px]`}
                     style={{
                         padding: "0px 72px"
                     }}
                 >
                     <div className={`w-1/2`}>
-                        <img src={MainImage} alt="" />
+                        <img src={LandingPage} alt="" />
                     </div>
 
-                    <div className={`home-page-main-text-container w-1/2 flex justify-center items-center flex-col gap-[30px]`}>
-                        <div className={`home-page-special-text w-full max-w-[540px] flex flex-col`} style={{
+                    <div className={`landing-page-main-text-container w-1/2 flex justify-center items-center flex-col gap-[30px]`}>
+                        <div className={`landing-page-special-text w-full max-w-[540px] flex flex-col`} style={{
                             alignSelf: "end"
                         }}>
                             <span className={`whitespace-nowrap`}>Unveil Thoughts </span>
@@ -73,7 +107,7 @@ const Home = () => {
                 </div>
 
                 <div
-                    className={`home-page-footer w-full border-t border-t-[#DBDBDB] flex justify-between items-center h-[120px]`}
+                    className={`landing-page-footer w-full border-t border-t-[#DBDBDB] flex justify-between items-center h-[120px]`}
                     style={{
                         padding: "0px 72px"
                     }}
@@ -107,6 +141,4 @@ const Home = () => {
     )
 }
 
-export default Home
-
-
+export default Landing

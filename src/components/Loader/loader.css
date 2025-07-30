@@ -1,0 +1,53 @@
+.app-loader {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.loader-container {
+    /* display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start; */
+    /* max-height: 85vh; */
+    /* max-width: 40vw; */
+    /* overflow-y: scroll; */
+
+    border-radius: 20px;
+    border: 1px solid #676767;
+    box-shadow:
+        4px 4px 10px #4848482d,
+        -4px 4px 10px #4848482d;
+
+    /* padding: 30px; */
+    /* border: 2px solid black; */
+    /* overflow: hidden; */
+}
+
+.loader-container:not(.disable-animation) {
+    animation: slideAndFadeInUp 0.5s ease forwards;
+}
+
+.loader-container::-webkit-scrollbar {
+    display: none;
+}
+
+.loader {
+    width: 120px;
+    height: 20px;
+    background: linear-gradient(#2D2D2D 0 0) 0/0% no-repeat #ddd;
+    animation: l1 2s infinite linear;
+}
+
+@keyframes l1 {
+    100% {
+        background-size: 100%
+    }
+}

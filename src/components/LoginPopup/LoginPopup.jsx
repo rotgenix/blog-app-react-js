@@ -1,11 +1,34 @@
-import React, { useState } from 'react'
-import "./loginPopup.css"
-import PasswordEye from "../../assets/PasswordEye.svg"
-import Close from "../../assets/Close.svg"
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
+
+import Close from "../../assets/Close.svg"
+import PasswordEye from "../../assets/PasswordEye.svg"
+
+import { loginUser, registerUser } from '../../redux/user/actions'
+
+import "./loginPopup.css"
+import { useNavigate } from 'react-router-dom'
 
 const LoginPopup = ({ setLoginPopUp }) => {
     const [signUp, setSignUp] = useState(false);
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [mobileNumber, setMobileNumber] = useState("");
+    const [categories, setCategories] = useState([]);
+    const [password, setPassword] = useState("");
+
+    const dispatch = useDispatch();
+    const {
+        apiState: {
+            success,
+            message: userApiMessage,
+            isError: userApiError
+        }
+    } = useSelector(state => state.user);
+
+    const navigate = useNavigate();
 
     const notify = () => {
         toast.success('🦄 Wow so easy!', {
@@ -21,6 +44,41 @@ const LoginPopup = ({ setLoginPopUp }) => {
             type: "success",
         });
     }
+
+    const handleSubmit = () => {
+        try {
+            console.log("signUp:", signUp);
+            if (signUp) {
+                dispatch(registerUser({ name, email, mobileNumber, categories, password }));
+            } else {
+                dispatch(loginUser({ email, password }));
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        console.log("59");
+        if (success && !userApiError) {
+            toast.success(userApiMessage, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                progressClassName: "bg-red-400",
+                theme: "colored",
+                type: "success",
+            });
+            setLoginPopUp(prev => !prev);
+            // navigate("/home", {});
+        }
+    }, [success]);
+
+    console.log("success:", success);
 
     return (
         <div className={`login-popup flex flex-col gap-[30px]`}>
@@ -63,7 +121,14 @@ const LoginPopup = ({ setLoginPopUp }) => {
                             }}
                         >Your full name</p>
                         <div className={`input-container`}>
-                            <input type="text" placeholder='Enter your full name' />
+                            <input
+                                type="text"
+                                placeholder='Enter your full name'
+                                value={name}
+                                onChange={(e) => {
+                                    setName(e.target.value);
+                                }}
+                            />
                         </div>
                     </div>}
 
@@ -75,7 +140,14 @@ const LoginPopup = ({ setLoginPopUp }) => {
                             }}
                         >Email Address</p>
                         <div className={`input-container`}>
-                            <input type="text" placeholder='abc@xyz.com' />
+                            <input
+                                type="text"
+                                placeholder='abc@xyz.com'
+                                value={email}
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                }}
+                            />
                         </div>
                     </div>
 
@@ -87,22 +159,31 @@ const LoginPopup = ({ setLoginPopUp }) => {
                             }}
                         >Mobile no.</p>
                         <div className={`input-container`}>
-                            <input type="text" placeholder='Enter your mobile no.' />
+                            <input
+                                type="text"
+                                placeholder='Enter your mobile no.'
+                                value={mobileNumber}
+                                onChange={(e) => {
+                                    setMobileNumber(e.target.value);
+                                }}
+                            />
                         </div>
                     </div>}
 
                     <div className={`input-label-container`}>
                         <p>Password</p>
                         <div className={`input-container flex justify-center items-center gap-[12px]`}>
-                            <input type="text" placeholder='******' />
+                            <input
+                                type="text"
+                                placeholder="******"
+                                value={password}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                }}
+                            />
                             <img src={PasswordEye} alt="" className={`cursor-pointer`} />
                         </div>
-                        {!signUp && <p
-                            className={`self-end`}
-                            style={{
-                                // marginTop: "-5px",
-                            }}
-                        >Forgot Password?</p>}
+                        {!signUp && <p className={`self-end`}>Forgot Password?</p>}
                     </div>
 
                     <div className={`flex flex-col gap-[24px] items-center`}>
@@ -115,15 +196,26 @@ const LoginPopup = ({ setLoginPopUp }) => {
                                 fontWeight: "400",
                                 color: "#FFFFFF"
                             }}
-                        >Sign in</button>
-                        <p className={`cursor-pointer`} onClick={() => {
-                            setSignUp(prev => !prev);
-                            notify();
-                        }}>{signUp ? "Already Have An Account? Log in!" : "Don’t Have An Account? Sign up!"}</p>
+                            onClick={() => {
+                                console.log("Sign up");
+                                handleSubmit();
+                            }}
+                        >
+                            {signUp ? "Sign up" : "Sign in"}
+                        </button>
+                        <p
+                            className={`cursor-pointer`}
+                            onClick={() => {
+                                setSignUp(prev => !prev);
+                                notify();
+                            }}
+                        >
+                            {signUp ? "Already Have An Account? Log in!" : "Don’t Have An Account? Sign up!"}
+                        </p>
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 
