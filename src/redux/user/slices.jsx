@@ -5,7 +5,7 @@ const userSlice = createSlice({
     name: "user",
     initialState: {
         apiState: {
-            success: false,
+            success: true,
             isError: false,
             message: "",
         },

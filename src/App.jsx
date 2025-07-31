@@ -31,18 +31,25 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    console.log("token:", token);
+    console.log(!token)
+    if (!token) {
+      console.log("37");
+      console.log(hasNoEmptyOrNullKeys(user));
+      if (!hasNoEmptyOrNullKeys(user)) {
+        console.log("Logged in", user);
+        return navigate("/", {});
+      }
+    }
     dispath(authenticateUser());
   }, []);
 
-  console.log(user);
   useEffect(() => {
-    console.log("37");
-    console.log(hasNoEmptyOrNullKeys(user));
-    if (!hasNoEmptyOrNullKeys(user)) {
-      console.log("Logged in", user);
+    if (!hasNoEmptyOrNullKeys(user) && userApiError && !success) {
       return navigate("/", {});
     }
-  }, [user]);
+  }, [user, userApiError, success]);
 
   return (
     <div className='app'>

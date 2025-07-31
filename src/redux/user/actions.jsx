@@ -2,22 +2,16 @@ import axios from "axios";
 import { config } from "../../utils/config";
 import { userActions } from "./slices";
 import { loaderActions } from "../loader/slices";
-// import { hideLoader, showLoader } from "../../utils/loader";
 
 export const registerUser = (reqBody) => {
     return async (dispatch) => {
         try {
-            console.log("7");
-            console.log("reqBody:", reqBody);
             dispatch(loaderActions.showLoader());
 
             const { data } = await axios.post(
                 `${config.BE_BASE_URL}/user/register-user`,
                 { ...reqBody }
             );
-
-            console.log("data:20:", data);
-            console.log("data:20:", data?.data);
 
             dispatch(
                 userActions.setUserData({
@@ -27,22 +21,23 @@ export const registerUser = (reqBody) => {
                     mobileNo: data?.data.user.mobileNo,
                     profilePic: data?.data.user.profilePic,
                     categories: data?.data.user.categories,
-                    token: data?.data.token,
+                    token: data?.token,
                 })
             );
 
             dispatch(
                 userActions.setUserApiState({
-                    // isLoading: false,
+                    success: true,
                     isError: false,
                     message: "",
                 })
             );
+            localStorage.setItem("token", data?.token);
         } catch (error) {
             console.log(error);
             dispatch(
                 userActions.setUserApiState({
-                    // isLoading: false,
+                    success: false,
                     isError: true,
                     message: error?.message || ""
                 })
@@ -56,7 +51,6 @@ export const registerUser = (reqBody) => {
 export const loginUser = (reqBody) => {
     return async (dispatch) => {
         try {
-            console.log("reqBody:", reqBody);
             dispatch(loaderActions.showLoader());
 
             const { data } = await axios.post(
@@ -67,9 +61,6 @@ export const loginUser = (reqBody) => {
                     withCredentials: true,
                 }
             );
-
-            console.log("data:71:", data);
-            console.log("data:71:", data?.data);
 
             dispatch(
                 userActions.setUserData({
@@ -90,11 +81,11 @@ export const loginUser = (reqBody) => {
                     message: "Logged in Successfully.",
                 })
             );
+            localStorage.setItem("token", data?.token);
         } catch (error) {
-            console.log(error);
             dispatch(
                 userActions.setUserApiState({
-                    // isLoading: false,
+                    success: false,
                     isError: true,
                     message: error?.message || ""
                 })
@@ -118,8 +109,6 @@ export const authenticateUser = () => {
                     headers: { 'Content-Type': 'application/json' }
                 }
             );
-            console.log("data:121:", data);
-            console.log("data:122:", data?.data?.user);
 
             console.log({
                 _id: data?.data?.user?._id || "",
@@ -129,7 +118,8 @@ export const authenticateUser = () => {
                 profilePic: data?.data.user.profilePic || "",
                 categories: data?.data.user.categories || [],
                 token: data?.token || "",
-            })
+            });
+
             dispatch(
                 userActions.setUserData({
                     _id: data?.data?.user?._id || "",
@@ -144,16 +134,16 @@ export const authenticateUser = () => {
 
             dispatch(
                 userActions.setUserApiState({
-                    // isLoading: false,
+                    success: true,
                     isError: false,
                     message: "",
                 })
             );
+            localStorage.setItem("token", data?.token);
         } catch (error) {
-            console.log(error);
             dispatch(
                 userActions.setUserApiState({
-                    // isLoading: false,
+                    success: false,
                     isError: true,
                     message: error?.message || ""
                 })
