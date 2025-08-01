@@ -30,3 +30,23 @@ body,
   padding: 10px;
   cursor: pointer;
 }
+
+.css-arrow {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #FFFFFF;
+  border-top: 2px solid #FFFFFF;
+  transform: rotate(45deg);
+  margin: 10px;
+}
+
+.css-arrow-2 {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #592EA9;
+  border-top: 2px solid #592EA9;
+  transform: rotate(45deg);
+  margin: 10px;
+}

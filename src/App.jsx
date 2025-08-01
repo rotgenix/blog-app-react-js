@@ -16,6 +16,7 @@ import { authenticateUser } from './redux/user/actions'
 // css
 import './App.css'
 import { hasNoEmptyOrNullKeys } from './utils/helper'
+import CreateBlog from './pages/CreateBlog/CreateBlog'
 
 function App() {
   const {
@@ -56,6 +57,7 @@ function App() {
       <Routes>
         <Route path='/' Component={Landing} />
         <Route path='/explore' Component={Explore} />
+        <Route path='/create' Component={CreateBlog} />
       </Routes>
 
       <ToastContainer
